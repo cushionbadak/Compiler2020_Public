@@ -1,0 +1,12 @@
+(executable
+  (name testParser)
+  (libraries
+    subC
+  )
+)
+
+(rule
+  (alias runtest)
+  (deps example.txt)
+  (action (run ./testParser.exe example.txt))
+)

@@ -1,0 +1,36 @@
+\section {\SubC \ Testcases for Compiler Assignment}
+
+이 섹션은 \SubC 언어를 CMachine 에서 사용할 수 있는 기계어로 바꾸는 과제 채점에 쓰일 \SubC 프로그램의 모습을 다룬다.
+
+\begin{itemize}
+  \item main 함수가 따로 없다.
+
+  코드는 위에서 아래로 주욱 실행되는 것으로 여겨지며, 다 실행된 뒤에는 오류 없이 멈춰야 한다.
+  
+  \item 정수는 부호 있는 63-bit 정수형이며, overflow와 underflow가 일어나는 프로그램은 없다.
+  
+  \SubC 프로그램의 정수값은 OCaml 기본 정수형 구현을 따라간다.
+  OCaml 기본 정수형은 63, 31 bit 부호있는 정수이며(시스템에 따라 다르다), 채점 환경은 63 bit 부호 있는 정수형을 사용한다.
+  채점에 쓰이는 프로그램들은 31bit 정수값 계산에 대해 overflow, underflow가 일어나지 않을 것이다.
+
+  \item 함수를 값처럼 사용하지 않는다.
+  
+  \SubC 문법은 함수의 타입을 표시할 수 있는 방법을 제공하지 않으며, 따라서 변수에 함수 포인터를 담을 수도 없다.
+  시스템 콜로 미리 정의된 함수들과 프로그램에서 정의한 함수들은 \Expression 에서 인자를 넘겨주며 호출하는 방식으로만 사용한다.
+
+  \item 함수를 정의할 때 항상 \mbtt{return} 명령문을 통해서 함수 내부 실행이 끝난다.
+  \item 함수 정의할 때 정해진 인자 갯수와 타입을 지켜 함수를 호출한다.
+  \item 배열 타입값을 인자로 받는 함수는 정의하지 않는다. 포인터나 구조체는 인자로 받을 수 있다.
+  \item \CCif , \CCfor , \CCwhile , \CCswitch 문장의 조건문을 계산하면 항상 정수값이 나온다.
+  \item \CCif 명령문에 대해 \CCbreak 나 \CCcontinue 명령문을 사용할 수 없다.
+  \item \CCswitch 명령문에 대해 \CCbreak 명령문은 사용할 수 있지만 \CCcontinue 명령문은 사용할 수 없다.
+  \item \CCswitch 명령문에 들어가는 case들은 그 순서나 연속성이 전혀 보장되지 않는다. case 문장의 조건 정수의 격차는 아주 크지는 않다.
+  
+  예를 들어, \CCswitch 명령문 안에 5, 1, (-1), 7 조건의 case 문장들과 default case 문장이 들어있을 수 있다.
+  case 문장의 조건 정수의 격차가 아주 크지 않다는 뜻은 조건 정수의 최대 크기차가 1000을 넘지 않는다는 뜻이다.
+  예를 들어, \CCswitch 명령문 안에 (-1000), 5, 1000, (-1) 조건의 case 문장들이 들어간 프로그램은 
+  조건 정수의 최대 크기차가 2000 이므로 채점 프로그램으로 쓰이지 않는다.
+
+  \item 대입문의 왼쪽 자리에 \CCrparen \CCampersand \LeftValueExpression \CClparen 는 사용하지 않는다.
+
+\end{itemize}

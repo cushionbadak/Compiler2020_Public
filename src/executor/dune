@@ -1,0 +1,9 @@
+(executable
+  (name run)
+  (modules_without_implementation)
+  (libraries
+    cMachine
+    subC
+    translator
+  )
+)

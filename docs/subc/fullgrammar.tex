@@ -1,0 +1,68 @@
+\section{Full Grammar}
+
+\begin{align*}
+  \Comment                & \SSra &         & \CCdiv \CCasterisk \ [\mbtt{0-9A-Za-z\ \_()+-*:;[]<>}]^* \ \CCasterisk \CCdiv \\
+  \\
+  \Program                & \SSra &         & \VarDeclaration^* \ \GlobalStatement^+ \\
+  \\
+  \VarDeclaration         & \SSra &         & \TypeExpression \ \Variable \ \CCscolon \\
+  \\
+  \GlobalStatement        & \SSra &         & \FunctionDefinition \\
+                          &       & \SSmid  & \Statement \\
+  \\
+  \FunctionDefinition     & \SSra &         & \TypeExpression \ \Variable \ \CClparen \ \ArgumentDefinitionList \ \CCrparen \ \SSFUnctionStatementBlock \\
+  \ArgumentDefinitionList & \SSra &         & \CCEmptyString \\
+                          &       & \SSmid  & \ArgumentDefinitionList \ [\ \CCcomma \ \TypeExpression \ \Variable]^* \\
+  \\
+  \Statement              & \SSra &         & \CCscolon \\
+                          &       &         & \Expression \ \CCscolon \\
+                          &       & \SSmid  & \CCif \ \CClparen \ \Expression \ \CCrparen \ 
+                                                \SSStatementBlock \ [\CCelse \ \SSStatementBlock]^? \\
+                          &       & \SSmid  & \CCswitch \ \CClparen \ \Expression \ \CCrparen \
+                                                \CClbrace \ \CaseStatement^+ \ \DefaultCaseStatement \ \CCrbrace \\
+                          &       & \SSmid  & \CCwhile \ \CClparen \ \Expression \ \CCrparen \ \SSStatementBlock \\
+                          &       & \SSmid  & \CCfor \ \CClparen \Expression \ \CCscolon \ \Expression \ \CCscolon \ \Expression \CCrparen \SSStatementBlock \\
+                          &       & \SSmid  & \CCcontinue \ \CCscolon \\
+                          &       & \SSmid  & \CCbreak \ \CCscolon \\
+                          &       & \SSmid  & \CCreturn \ \Expression \ \CCscolon \\
+  \CaseStatement          & \SSra &         & \CCcase \ \Integer \ \CCcolon \ \Statement^* \\
+  \DefaultCaseStatement   & \SSra &         & \CCdefault \ \CCcolon \ \Statement^* \\
+  \\
+  \Expression             & \SSra &         & \Integer \\
+                          &       & \SSmid  & \LeftValueExpression \\  
+                          &       & \SSmid  & \LeftValueExpression \ \CCassign \ \Expression \\
+                          &       & \SSmid  & \UnaryOperator \ \Expression \\
+                          &       & \SSmid  & \Expression \ \BinaryOperator \ \Expression \\
+                          &       & \SSmid  & \Variable \ \CClparen \ArgumentList \ \CCrparen \\
+                          &       & \SSmid  & \SystemCall \\
+  \ArgumentList           & \SSra &         & \CCEmptyString \\
+                          &       & \SSmid  & \Expression [, \Expression]^* \\
+  \\
+  \LeftValueExpression    & \SSra &         & \Variable \\
+                          &       & \SSmid  & \CClparen \ \CCasterisk \ \LeftValueExpression \ \CCrparen \\
+                          &       & \SSmid  & \CClparen \ \CCampersand \ \LeftValueExpression \ \CCrparen \\
+                          &       & \SSmid  & \LeftValueExpression \ \CClsbracket \ \Expression \ \CCrsbracket \\
+                          &       & \SSmid  & \LeftValueExpression \ \CCperiod \ \Variable \\
+  \\
+  \SystemCall             & \SSra &         & \CCmalloc \ \CClparen \ \Expression \ \CCrparen \\
+                          &       & \SSmid  & \CCfree \ \CClparen \ \Expression \ \CCrparen \\
+                          &       & \SSmid  & \CCread \ \CClparen \ \CCrparen \\
+                          &       & \SSmid  & \CCwrite \ \CClparen \ \Expression \ \CCcomma \ \Expression \ \CCrparen \\
+                          &       & \SSmid  & \CCrandom \ \CClparen \ \CCrparen \\
+  \\  
+  \UnaryOperator          & \SSra &         & \CCminus \SSmmid \CCnot \\
+  \BinaryOperator         & \SSra &         & \CCplus \SSmmid \CCminus \SSmmid \CCasterisk \SSmmid \CCdiv \\
+                          &       & \SSmid  & \CCmod \SSmmid \CCand \SSmmid \CCor \SSmmid \CCeqop \\
+                          &       & \SSmid  & \CCne \SSmmid \CClt \SSmmid \CCle \SSmmid \CCgt \\
+                          &       & \SSmid  & \CCge \\
+  \\
+  \TypeExpression         & \SSra &         & \CCint \\
+                          &       & \SSmid  & \TypeExpression \ \CClsbracket \ \Integer \ \CCrsbracket \\
+                          &       & \SSmid  & \TypeExpression \ \CCasterisk \\
+                          &       & \SSmid  & \CCstruct \ \Variable \\
+                          &       & \SSmid  & \CCstruct \ \CClbrace \ \VarDeclaration^* \ \CCrbrace \\
+                          &       & \SSmid  & \CCstruct \ \Variable \ \CClbrace \ \VarDeclaration^* \ \CCrbrace \\
+  \\
+  \Variable               & \SSra &         & [\mbtt{A-Za-z\_}][\mbtt{0-9A-Za-z\_}]^* \ \mbox{(except Keywords)} \\
+  \Integer                & \SSra &         & \mbtt{0} \ \mid \ [\mbtt{1-9}][\mbtt{0-9}]^* \ \mid \ \mbtt{-}[\mbtt{1-9}][\mbtt{0-9}]^* \\
+\end{align*}

@@ -1,0 +1,165 @@
+/* test vardecls and type expressions */
+
+int v1;
+int[10] v2;
+int [100] v3;
+int* v4;
+int * * v5;
+struct {int k;} v6;
+struct {int* sv1; int*[100] sv2; int sv3;} v7;
+struct {int k1; int* k2;} * [100] v8;
+
+
+
+/* test gstmts */
+
+v1 = 1;
+int f1 () { return 5; }
+v1 = 3;
+int f2 () { return v1; }
+
+
+
+/* test left expressions in global scope */
+(*v2) = 3;
+v3[10] = 5;
+(* v4) = 7;
+(* (*v5)) = 9;
+(*v7.sv1) = 13;
+(*(* v8[10]).k2) = 15;
+
+
+
+/* test expressions in global scope */
+v1 = (v2[5] = 3);
+v1 = v2[5] + 3;
+v1 = 3 - v2[5];
+v1 = 3 * v2[5];
+v1 = 3 / v2[5];
+v1 = v2[4] % v2[5];
+v1 = v2[4] + v2[5] + (*v4);
+v1 = v2[4] + v2[5] + v1;
+v1 = 1 == 0;
+v1 = 1 != 0;
+v1 = 1 < 0;
+v1 = 1 <= 0;
+v1 = 1 > 0;
+v1 = 1 >= 0;
+v1 = (3 + v2[5]) >= 0;
+v1 = !1;
+v1 = --1;
+v1 = (v2[5]);
+
+
+
+/* test statements in global scope */
+1;
+v1 + v2[4];
+
+if (v1 < !v2[4]) {
+  v1 = v1 + 3;
+}
+
+if (v1 > !v2[4]) {
+  v2[4] = v2[4] + 3;
+} else {
+  v1 = v2[4] + 3;
+}
+
+switch (v1 * v2[4]){
+  case 5:
+    v1 = 3;
+    v2[4] = 5;
+  default:
+    v1 = 2;
+    v2 = 3;
+}
+
+switch (v1 * v2[4]){
+  case 3:
+    v1 = 3;
+    v2[4] = 5;
+    break;
+  default:
+    ;
+}
+
+for (v1 = 3; v1 < 10; v1 = v1 + 1) {
+  v2[4] = v2[4] + 3;
+  v2[5] = v2[4] + v1 * 2;
+  if(v2[5] < 2 + 1) {
+    break;
+  }
+}
+
+while (v2[4] < 3) {
+  v2[4] = v2[4] - v2[5];
+  if (v2[4] + 3 < 5) {
+    continue;
+  }
+  else{
+    if (v2[4] + 3 < 7){
+      break;
+    }
+  }
+  v2[4] = v2[4] + 7;
+}
+
+
+
+/* test function definition */
+/* focus on return type and return stmt and arguments representation */
+
+int f11 () {
+  int lv1;
+  return 0;
+}
+
+int f12 () {
+  int lv1;
+  lv1 = 5;
+  return lv1 + 3;
+}
+
+int f13 (int a) {
+  return a;
+}
+
+int f14 (int a1, int a2){
+  return a1 * a2;
+}
+
+int f15 (){
+  struct {int sv1;} lv1;
+  lv1.sv1 = 3;
+  return lv1.sv1 + lv1.sv1 * lv1.sv1 ;
+}
+
+int f16 (struct{int k1; int k2;} a1) {
+  int lv1;
+  lv1 = a1.k1 + a1.k2;
+  return lv1;
+}
+
+struct{int k1; int k2;} f17 (struct{int k1; int k2; int[10] k3;} a1, int*[10] a2, int a3){
+  struct{int k1; int k2;} lv1;
+  lv1.k1 = a1.k1 * a1.k3[3] + (*a2[5]) - a3 * 2;
+  lv2.k2 = 3 + a3;
+  return lv1;
+}
+
+int ** f17 (int ** a){
+}
+
+int f18 (int a1, int a2, int a3){
+  return f11();
+}
+
+int f19 (){
+  if( f18(1, 2, 3) > 1 ) {
+    return 1;
+  }
+  else{
+    return f18(2, 3, 4);
+  }
+}

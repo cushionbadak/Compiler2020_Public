@@ -1,0 +1,9 @@
+(tests
+  (names 
+    testLang
+    testMachine
+  )
+  (libraries
+    cMachine
+  )
+)

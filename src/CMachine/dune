@@ -1,0 +1,6 @@
+(library
+  (name cMachine)
+  (modules_without_implementation
+    lang
+  )
+)

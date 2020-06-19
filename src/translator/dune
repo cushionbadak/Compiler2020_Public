@@ -1,0 +1,7 @@
+(library
+  (name translator)
+  (libraries
+    cMachine
+    subC
+  )
+)

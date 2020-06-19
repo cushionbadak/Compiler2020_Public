@@ -1,0 +1,16 @@
+(library
+  (name subC)
+  (modules_without_implementation
+    lang
+  )
+)
+
+(ocamllex
+  (modules lexer)
+)
+
+(menhir
+  (modules parser)
+  (flags --explain --dump -v)
+  (infer true)
+)
